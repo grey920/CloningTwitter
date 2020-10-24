@@ -46,6 +46,7 @@ export default function CustomTable(props) {
                   );
                 })}
               </TableRow>
+
             );
           })}
         </TableBody>

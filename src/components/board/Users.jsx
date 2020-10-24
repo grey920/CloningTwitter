@@ -45,6 +45,53 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
+
+const UserList = [
+  {
+    "id": "1",
+    "name": "정겨운",
+    "birthday": "1992.01.18",
+    "email": "aaa@aaa.com",
+    "gender": "여"
+  },
+  {
+    "id": "2",
+    "name": "정다와",
+    "birthday": "1992.01.18",
+    "email": "aaa@aaa.com",
+    "gender": "여"
+  },
+  {
+    "id": "3",
+    "name": "정중기",
+    "birthday": "1992.01.18",
+    "email": "aaa@aaa.com",
+    "gender": "남"
+  },
+  {
+    "id": "4",
+    "name": "이미자",
+    "birthday": "1992.01.18",
+    "email": "aaa@aaa.com",
+    "gender": "여"
+  },
+  {
+    "id": "5",
+    "name": "정함박",
+    "birthday": "1992.01.18",
+    "email": "aaa@aaa.com",
+    "gender": "여"
+  },
+  {
+    "id": "6",
+    "name": "홍길동",
+    "birthday": "1992.01.18",
+    "email": "aaa@aaa.com",
+    "gender": "남"
+  },
+];
+
+
 export default function TableList() {
   const classes = useStyles();
   return (
@@ -67,21 +114,20 @@ export default function TableList() {
                 ["1", "정겨운", "1992.01.18", "aaa@aaa.com", "여"],
                 ["2", "정다와", "1992.01.18", "aaa@aaa.com", "여"],
                 ["3", "정중기", "1992.01.18", "aaa@aaa.com", "남"],
-                [
-                  "4",
-                  "이미자",
-                  "1992.01.18",
-                  "aaa@aaa.com",
-                  "여"
-                ],
-                [
-                  "5",
-                  "정함박",
-                  "1992.01.18",
-                  "aaa@aaa.com",
-                  "여"
-                ],
-                ["6", "홍길동", "1992.01.18", "aaa@aaa.com", "남"]
+                // [
+                //   "4",
+                //   "이미자",
+                //   "1992.01.18",
+                //   "aaa@aaa.com",
+                //   "여"
+                // ],
+                // [
+                //   "5",
+                //   "정함박",
+                //   "1992.01.18",
+                //   "aaa@aaa.com",
+                //   "여"
+                // ]
               ]}
             />
           </CardBody>

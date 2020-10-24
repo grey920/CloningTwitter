@@ -1,0 +1,24 @@
+.content {
+    display: flex;
+    flex-direction: column;
+   // width: 100%;
+
+    .form {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+
+        .form-group {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          width: 100%;
+          padding: 5px 10px;
+        }
+
+      
+        
+    }
+}
+

@@ -1,10 +1,13 @@
 main {
   width: 100%;
-  height: 100%;
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   .maincontainer {
     width: 100%;
-    height: 100%;
+    height: inherit;
     display: flex;
     flex-direction: row;
 
@@ -20,7 +23,7 @@ main {
       justify-content: center;
 
       .contentdiv {
-        max-width: 380px;
+        //width: 380px;
         padding-top: 15px;
         padding-bottom: 15px;
         display: flex;
@@ -43,17 +46,21 @@ main {
 
     .rightdiv {
       height: auto;
-      width: 50%;
+     // width: 50%;
       background-color: white;
       display: flex;
       flex-direction: column;
       align-items: center;
       //justify-content: center;
 
-      .contentdiv {
+      .contentdiv{
+        max-width: 380px;
+      }
+
+      .content, .contentdiv {
         margin: 0 auto;
         padding: 15px;
-        max-width: 380px;
+     
         align-self: center;
 
         img {
@@ -75,6 +82,16 @@ main {
           margin-top: 59px;
           margin-bottom: 15px;
           font-weight: bold;
+        }
+
+        .mainBtn{
+          width:100px;
+        }
+
+        .whiteBtn{
+          background-color: white;
+          color: #1da1f2;
+          border: 1px solid #1da1f2;
         }
 
         button {
@@ -118,5 +135,14 @@ main {
 
 .btnWrapper {
   width: 100%;
+  padding:0 10px;
   text-align: center;
 }
+
+// .bar{
+//   width: 30px;
+//   background-color: white;
+//   position: relative;
+//   height: 60px;
+//   top: -5px;
+// }

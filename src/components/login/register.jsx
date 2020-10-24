@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import BlueButton from './BlueButton';
 import './Home.scss';
 import InputWithLabel from './InputWithLabel';
+import BirthInput from './BirthInput';
 
 export class Register extends React.Component {
     constructor(props) {
@@ -33,21 +34,7 @@ export class Register extends React.Component {
                             <div className="form-group-birth">
                                 <div className="birth-title"><b>생년월일</b></div>
                                 <div className="birth-des">이 정보는 공개적으로 표시되지 않습니다. 비즈니스, 반려동물 등 계정 주제에 상관 없이 나의 연령을 확인하세요.</div>
-                                <div className="birth-input">
-                                    <label htmlFor="birth">
-                                        <div className="form-group">
-                                            <select>
-                                                <option>월</option>
-                                            </select>
-                                        </div>
-                                        <div className="form-group">
-                                        </div>
-
-                                        <div className="form-group">
-
-                                        </div>
-                                    </label>
-                                </div>
+                                <BirthInput></BirthInput>
                             </div>
                             <BlueButton to="#" name="goHome">회원가입</BlueButton>
                         </div>
@@ -57,3 +44,4 @@ export class Register extends React.Component {
         );
     }
 }
+

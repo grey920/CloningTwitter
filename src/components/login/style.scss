@@ -1,6 +1,6 @@
 main {
-  width: 100%;
-  height: 100%;
+  // width: 100%;
+  // height: 100%;
   .base-container {
     margin: 20px auto;
     max-width: 600px;
@@ -44,22 +44,26 @@ main {
       border-radius: 9999px;
     }
 
+    .descript {
+      h1 {
+        text-align: start;
+        padding: 0 30px;
+      }
+    }
+
     .content {
       display: flex;
       flex-direction: column;
       width: 100%;
 
-      .descript {
-        h1 {
-          text-align: start;
-        }
-      }
+      
 
       .form {
         width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
+        padding: 0 15px;
 
         .form-group,
         .form-group-birth {
@@ -123,7 +127,7 @@ main {
           width: 100%;
           height: 47px;
           padding: 0 30px;
-          margin: 10px;
+         // margin: 10px;
           font-size: 15px;
           text-align: center;
           background-color: #1da1f2;

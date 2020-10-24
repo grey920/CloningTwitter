@@ -1,9 +1,11 @@
 import React from 'react';
 import { BsPeople, BsChat, BsSearch } from "react-icons/bs";
-import LoginHeader from './LoginHeader';
 import ImageTag from './ImageTag';
 import BlueButton from './BlueButton';
+import InputWithLabel from './InputWithLabel';
+import './inputWithLabel.scss';
 import './Home.scss';
+
 import FooterList from './Footer';
 
 class SubText extends React.Component {
@@ -45,13 +47,21 @@ export class Home extends React.Component {
                     </div>
 
                     <div className="rightdiv">
-                        <LoginHeader></LoginHeader>
+                        <div className="header">
+                            <div className="content">
+                                <div className="form">
+                                    <InputWithLabel label="useremail" name="email" type="email">휴대폰, 이메일, 사용자 아이디</InputWithLabel>
+                                    <InputWithLabel label="password" name="password" type="password">비밀번호</InputWithLabel>
+                                    <BlueButton name="mainBtn" to="#">로그인</BlueButton>
+                                </div>
+                            </div>
+                        </div>
                         <div className="contentdiv">
                             <ImageTag img="loginImg"></ImageTag>
                             <SubText sub="지금 전 세계에서 무슨 일이 일어나고 있는지 알아보세요" />
                             <SubText sub="오늘 트위터에 가입하세요" />
                             <BlueButton to="/register">가입하기</BlueButton>
-                            <BlueButton to="/login">로그인</BlueButton>
+                            <BlueButton name="whiteBtn" to="/login">로그인</BlueButton>
                             <BlueButton to="/users">회원조회</BlueButton>
                         </div>
                     </div>
