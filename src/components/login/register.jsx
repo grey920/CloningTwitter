@@ -24,7 +24,7 @@ export class Register extends React.Component {
                         <div className="descript">
                             <h1>계정을 생성하세요</h1>
                         </div>
-                        <div className="form">
+                        <form className="form">
                             <InputWithLabel label="username" type="text" name="username">이름</InputWithLabel>
                             <InputWithLabel label="email" type="email" name="email">이메일</InputWithLabel>
                             <div className="register-by">
@@ -37,7 +37,7 @@ export class Register extends React.Component {
                                 <BirthInput></BirthInput>
                             </div>
                             <BlueButton to="#" name="goHome">회원가입</BlueButton>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </main>

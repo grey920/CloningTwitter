@@ -28,16 +28,19 @@ class BirthInput extends React.Component {
         return (
             <div className="birthWrapper">
                 <div >
+                    <div className="birthtitle"><span>연도</span></div>
                     <select onChange={this.onChange}>
                         {this.getYearList()}
                     </select>
                 </div>
                 <div>
+                    <div className="birthtitle"><span>월</span></div>
                     <select onChange={this.onChange}>
                         {this.getMonthList()}
                     </select>
                 </div>
                 <div>
+                    <div className="birthtitle"><span>일</span></div>
                     <select onChange={this.onChange}>
                         {this.getDayList()}
                     </select>
