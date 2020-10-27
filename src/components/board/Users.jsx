@@ -71,6 +71,10 @@ export default function StickyHeadTable() {
         <p>회원 목록</p>
       </div>
       <TableContainer className="MuiPaper-root makeStyles-root-1 MuiPaper-elevation1 MuiPaper-rounded">
+        <div className="serchbar">
+          <input type="text" />
+          <button>조회</button>
+        </div>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
@@ -94,9 +98,12 @@ export default function StickyHeadTable() {
                     return (
                       <TableCell key={column.id} align={column.align}>
                         {column.format && typeof value === 'number' ? column.format(value) : value}
+                        <button>수정</button>
+                        <button>삭제</button>
                       </TableCell>
                     );
                   })}
+
                 </TableRow>
               );
             })}

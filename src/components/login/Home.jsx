@@ -82,7 +82,7 @@ export class Home extends React.Component {
                             <SubText sub="오늘 트위티에 가입하세요" />
                             <BlueButton to="/register">가입하기</BlueButton>
                             <BlueButton name="whiteBtn" to="/login">로그인</BlueButton>
-                            <BlueButton to="/users">회원조회</BlueButton>
+                            <BlueButton to="/users2">회원조회</BlueButton>
                         </div>
                     </div>
                 </content>
