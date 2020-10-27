@@ -59,7 +59,7 @@ export class Home extends React.Component {
                         <div className="contentdiv">
                             <ImageTag img="loginImg"></ImageTag>
                             <SubText sub="지금 전 세계에서 무슨 일이 일어나고 있는지 알아보세요" />
-                            <SubText sub="오늘 트위터에 가입하세요" />
+                            <SubText sub="오늘 트위티에 가입하세요" />
                             <BlueButton to="/register">가입하기</BlueButton>
                             <BlueButton name="whiteBtn" to="/login">로그인</BlueButton>
                             <BlueButton to="/users">회원조회</BlueButton>
