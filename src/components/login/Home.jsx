@@ -27,6 +27,7 @@ const NMsg = (props) => {
     );
 }
 
+// 로그인 함수
 const loginEndPoint = "/api/users/login"
 const login = async () => {
     const loginTryUser = {};
@@ -40,6 +41,9 @@ const login = async () => {
     }
     const { data: user } = await Axios.post(loginEndPoint, logUser);
     console.log(user);
+    if (user) {
+        alert("로그인되었습니다");
+    }
 }
 
 export class Home extends React.Component {
