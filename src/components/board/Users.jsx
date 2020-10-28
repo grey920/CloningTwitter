@@ -11,7 +11,7 @@ import './users.scss';
 import Axios from 'axios';
 
 const columns = [
-  { id: 'id', label: 'No.', minWidth: 100 },
+  { id: 'id', label: 'No.', minWidth: 80, },
   { id: 'name', label: '이름', minWidth: 170 },
   { id: 'email', label: '이메일', minWidth: 100 },
   {
@@ -19,21 +19,32 @@ const columns = [
     label: '생년월일',
     minWidth: 170,
     align: 'right',
-    format: (value) => value.toLocaleString('en-US'),
+    //  format: (value) => value.toLocaleString('en-US'),
   },
   {
     id: 'age',
     label: '나이',
     minWidth: 170,
     align: 'right',
-    format: (value) => value.toLocaleString('en-US'),
+    //  format: (value) => value.toLocaleString('en-US'),
   },
   {
     id: 'password',
     label: '비밀번호',
     minWidth: 170,
     align: 'right',
-    format: (value) => value.toFixed(2),
+  },
+  {
+    id: 'update',
+    label: '수정',
+    minWidth: 30,
+    align: 'right',
+  },
+  {
+    id: 'remove',
+    label: '삭제',
+    minWidth: 30,
+    align: 'right',
   },
 ];
 
@@ -93,17 +104,22 @@ export default function StickyHeadTable() {
             {users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
               return (
                 <TableRow tabIndex={-1} key={row.id}>
-                  {columns.map((column) => {
+                  {/* {columns.map((column) => {
                     const value = row[column.id];
                     return (
                       <TableCell key={column.id} align={column.align}>
                         {column.format && typeof value === 'number' ? column.format(value) : value}
-                        <button>수정</button>
-                        <button>삭제</button>
                       </TableCell>
                     );
-                  })}
-
+                  })} */}
+                  <td key={row.id}> {row.id} </td>
+                  <td className={row.name}>{row.name}</td>
+                  <td className={row.email}>{row.email}</td>
+                  <td style={{ textAlign: 'right' }} className={row.birthDay}>{row.birthDay}</td>
+                  <td style={{ textAlign: 'right' }} className={row.age}>{row.age}</td>
+                  <td style={{ textAlign: 'right' }} className={row.password}>{row.password}</td>
+                  <td><input type="button" value="수정" /></td>
+                  <td><input type="button" value="삭제" /></td>
                 </TableRow>
               );
             })}
@@ -119,6 +135,6 @@ export default function StickyHeadTable() {
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
-    </Paper>
+    </Paper >
   );
 }

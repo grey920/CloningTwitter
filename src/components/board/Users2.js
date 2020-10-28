@@ -39,7 +39,7 @@ const UserBody = (props) => {
     console.log(props.trigger)
     props.trigger(1)
     return (
-        props.data.map((d) => (
+        props.data.slice(props.page * props.rowsPerPage, props.page * props.rowsPerPage + props.rowsPerPage).map((d) => (
             <tr key={d.id}>
                 <td><input type="checkbox" value={d.id} /></td>
                 <td className={d.id}> {d.id} </td>
@@ -68,28 +68,13 @@ export default function UserListTable() {
         setPage(0);
     };
 
-
-
-    // 회원목록 가져오기
-    // const [users, setUsers] = useState([]);
-
     const [state, setState] = useState([]);
     const [trgger, setTrigger] = useState(0);
 
-
-    // useEffect(() => {
-    //     Axios.get("/api/users")
-    //         .then((res) => {
-    //             let userArray = res.data;
-    //             console.log(userArray);
-    //             setUsers(userArray);
-    //         });
-    // }, []);
     useEffect(() => {
         Axios.get("/api/users")
             .then(data => {
                 setState(data.data);
-                //data.data.map( (d) => userBody(d))
             })
     }, [trgger])
 
@@ -114,7 +99,7 @@ export default function UserListTable() {
                         </tr>
                     </thead>
                     <tbody>
-                        <UserBody data={state} trigger={setTrigger} />
+                        <UserBody data={state} page={page} rowsPerPage={rowsPerPage} trigger={setTrigger} />
                     </tbody>
                 </table>
             </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import './App.scss';
 import { Login, Register, Home } from './components/login';
-import Users2 from './components/board/Users2'
+import Users from './components/board/Users'
 
 function App() {
     return (
@@ -11,7 +11,7 @@ function App() {
                 <Route exact path="/" component={Home} />
                 <Route path="/login" component={Login} />
                 <Route path="/register" component={Register} />
-                <Route path="/users2" component={Users2} />
+                <Route path="/users" component={Users} />
             </BrowserRouter>
         </div>
     );

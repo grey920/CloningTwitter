@@ -5,15 +5,43 @@
         margin: 0 auto;
     }
 
-        .header{
-            text-align: center;
-            padding-top:5px;
+    .header{
+        text-align: center;
+        padding-top:5px;
 
-            h1{
-                font-size: 50px;
-                margin-bottom: 5px;
+        h1{
+            font-size: 50px;
+            margin-bottom: 5px;
+        }
+    }
+
+    .MuiTableContainer-root{
+
+        table{
+
+            tbody{
+
+                td:nth-child(7), td:last-child{
+                    padding:0 10px;
+                    input{width:100%;}
+                }
+                
             }
         }
-    
+    }
+
+    .footer{
+        padding:0 100px;
+        display: flex;
+
+        .btnWrapper{
+            margin-top: 15px;
+            text-align: left;
+
+            button{
+                margin-right: 5px;
+            }
+        }
+    }
 }
 
