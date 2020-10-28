@@ -52,11 +52,19 @@ main {
       flex-direction: column;
       align-items: center;
       //justify-content: center;
+      .header{    width: 100%;
+      }
 
       .contentdiv{
         max-width: 380px;
       }
-
+      .loginSuccessHeader{
+        display:flex;
+        h3{font-size:15px;}
+      }
+      .loginSuccessHeader> .btnWrapper{
+        width:40%;
+      }
       .content, .contentdiv {
         margin: 0 auto;
         padding: 15px;
@@ -82,6 +90,9 @@ main {
           margin-top: 59px;
           margin-bottom: 15px;
           font-weight: bold;
+        }
+        .loginUserSerch{
+          margin-top:80px;
         }
 
         .mainBtn{

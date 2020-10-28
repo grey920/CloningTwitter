@@ -67,14 +67,28 @@ export default function StickyHeadTable() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
+    // 세션이 있으면 그 회원만 조회하기
+    if (localStorage.getItem('user') != null) {
+      console.log(JSON.parse(localStorage.getItem('user')).email)
+      const userEmail = JSON.parse(localStorage.getItem('user')).email;
 
-    // 전체 회원목록 조회 호출
-    Axios.get("/api/users")
-      .then((res) => {
-        let userArray = res.data;
-        //console.log(userArray);
-        setUsers(userArray);
-      });
+      Axios.get(`/api/users/${userEmail}`)
+        .then((res) => {
+          let userArray = res.data;
+          console.log(userArray);
+          setUsers(userArray);
+        });
+    } else {
+
+      // 전체 회원목록 조회 호출
+      Axios.get("/api/users")
+        .then((res) => {
+          let userArray = res.data;
+          console.log(userArray);
+          setUsers(userArray);
+        });
+    }
+
 
   }, []);
 
@@ -111,20 +125,40 @@ export default function StickyHeadTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => {
-              return (
-                <TableRow tabIndex={-1} key={user.id}>
-                  <td key={user.id}> {user.id} </td>
-                  <td className={user.name}>{user.name}</td>
-                  <td className={user.email}>{user.email}</td>
-                  <td style={{ textAlign: 'right' }} className={user.birthDay}>{user.birthDay}</td>
-                  <td style={{ textAlign: 'right' }} className={user.age}>{user.age}</td>
-                  <td style={{ textAlign: 'right' }} className={user.password}>{user.password}</td>
-                  <td><input type="button" value="수정" onClick={() => handleUpdate(user)} /></td>
-                  <td><input type="button" value="삭제" /></td>
-                </TableRow>
-              );
-            })}
+            {localStorage.getItem('user') != null ?
+              // 로그인 한 경우 -> 해당 유저의 내용만 보여준다
+              <TableRow tabIndex={-1} key={users.id}>
+                <td key={users.id}> {users.id} </td>
+                <td className={users.name}>{users.name}</td>
+                <td className={users.email}>{users.email}</td>
+                <td style={{ textAlign: 'right' }} className={users.birthDay}>{users.birthDay}</td>
+                <td style={{ textAlign: 'right' }} className={users.age}>{users.age}</td>
+                <td style={{ textAlign: 'right' }} className={users.password}>{users.password}</td>
+                <td><input type="button" value="수정" onClick={() => handleUpdate(users)} /></td>
+                <td><input type="button" value="삭제" /></td>
+              </TableRow>
+              :
+
+              // 전체 회원 조회
+              <>
+                {
+                  users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => {
+                    return (
+                      <TableRow tabIndex={-1} key={user.id}>
+                        <td key={user.id}> {user.id} </td>
+                        <td className={user.name}>{user.name}</td>
+                        <td className={user.email}>{user.email}</td>
+                        <td style={{ textAlign: 'right' }} className={user.birthDay}>{user.birthDay}</td>
+                        <td style={{ textAlign: 'right' }} className={user.age}>{user.age}</td>
+                        <td style={{ textAlign: 'right' }} className={user.password}>{user.password}</td>
+                        <td><input type="button" value="수정" onClick={() => handleUpdate(user)} /></td>
+                        <td><input type="button" value="삭제" /></td>
+                      </TableRow>
+                    );
+                  })
+                }
+              </>
+            }
           </TableBody>
         </Table>
       </TableContainer>

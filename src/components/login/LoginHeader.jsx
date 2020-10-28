@@ -38,7 +38,8 @@ const login = async () => {
         .then(user => {
             console.log(user);
             alert("로그인되었습니다");
-            localStorage.setItem("user", JSON.stringify(user));
+            localStorage.setItem("user", JSON.stringify(user.data));
+            return window.location.href = '/';
 
         })
         .catch(function (error) {
