@@ -67,13 +67,23 @@ export default function StickyHeadTable() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
+
+    // 전체 회원목록 조회 호출
     Axios.get("/api/users")
       .then((res) => {
         let userArray = res.data;
-        console.log(userArray);
+        //console.log(userArray);
         setUsers(userArray);
       });
+
   }, []);
+
+  // 회원 수정
+  const handleUpdate = async user => {
+    // 수정하려는 유저 아이디 ->해당 데이터 가져오기
+    const { data } = await Axios.put("/api/users", user);
+    console.log(data)
+  }
 
   return (
     <Paper id="root">
@@ -101,24 +111,16 @@ export default function StickyHeadTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+            {users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => {
               return (
-                <TableRow tabIndex={-1} key={row.id}>
-                  {/* {columns.map((column) => {
-                    const value = row[column.id];
-                    return (
-                      <TableCell key={column.id} align={column.align}>
-                        {column.format && typeof value === 'number' ? column.format(value) : value}
-                      </TableCell>
-                    );
-                  })} */}
-                  <td key={row.id}> {row.id} </td>
-                  <td className={row.name}>{row.name}</td>
-                  <td className={row.email}>{row.email}</td>
-                  <td style={{ textAlign: 'right' }} className={row.birthDay}>{row.birthDay}</td>
-                  <td style={{ textAlign: 'right' }} className={row.age}>{row.age}</td>
-                  <td style={{ textAlign: 'right' }} className={row.password}>{row.password}</td>
-                  <td><input type="button" value="수정" /></td>
+                <TableRow tabIndex={-1} key={user.id}>
+                  <td key={user.id}> {user.id} </td>
+                  <td className={user.name}>{user.name}</td>
+                  <td className={user.email}>{user.email}</td>
+                  <td style={{ textAlign: 'right' }} className={user.birthDay}>{user.birthDay}</td>
+                  <td style={{ textAlign: 'right' }} className={user.age}>{user.age}</td>
+                  <td style={{ textAlign: 'right' }} className={user.password}>{user.password}</td>
+                  <td><input type="button" value="수정" onClick={() => handleUpdate(user)} /></td>
                   <td><input type="button" value="삭제" /></td>
                 </TableRow>
               );
