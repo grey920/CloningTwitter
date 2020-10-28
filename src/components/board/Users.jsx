@@ -42,7 +42,7 @@ const columns = [
   },
   {
     id: 'remove',
-    label: '삭제',
+    label: '계정 삭제',
     minWidth: 30,
     align: 'right',
   },
@@ -69,7 +69,6 @@ export default function StickyHeadTable() {
   useEffect(() => {
     // 세션이 있으면 그 회원만 조회하기
     if (localStorage.getItem('user') != null) {
-      console.log(JSON.parse(localStorage.getItem('user')).email)
       const userEmail = JSON.parse(localStorage.getItem('user')).email;
 
       Axios.get(`/api/users/${userEmail}`)
@@ -79,8 +78,7 @@ export default function StickyHeadTable() {
           setUsers(userArray);
         });
     } else {
-
-      // 전체 회원목록 조회 호출
+      // 세션이 없으면 전체 회원목록 조회 호출
       Axios.get("/api/users")
         .then((res) => {
           let userArray = res.data;
@@ -95,8 +93,19 @@ export default function StickyHeadTable() {
   // 회원 수정
   const handleUpdate = async user => {
     // 수정하려는 유저 아이디 ->해당 데이터 가져오기
-    const { data } = await Axios.put("/api/users", user);
-    console.log(data)
+    //const { data } = await Axios.put("/api/users", user);
+    console.log(users);
+    window.location.href = '/register';
+  }
+
+  // 회원 삭제
+  const handleDelete = async user => {
+    console.log(users);
+    // const exUser = JSON.stringify(users);
+    await Axios.delete('/api/users', { data: users });
+    setUsers([]);
+    localStorage.clear('user');
+    window.location.href = '/';
   }
 
   return (
@@ -106,10 +115,16 @@ export default function StickyHeadTable() {
         <p>회원 목록</p>
       </div>
       <TableContainer className="MuiPaper-root makeStyles-root-1 MuiPaper-elevation1 MuiPaper-rounded">
-        <div className="serchbar">
-          <input type="text" />
-          <button>조회</button>
-        </div>
+        {localStorage.getItem('user') != null ?
+          <></>
+          :
+          <>
+            <div className="serchbar">
+              <input type="text" />
+              <button>조회</button>
+            </div>
+          </>
+        }
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
@@ -135,27 +150,26 @@ export default function StickyHeadTable() {
                 <td style={{ textAlign: 'right' }} className={users.age}>{users.age}</td>
                 <td style={{ textAlign: 'right' }} className={users.password}>{users.password}</td>
                 <td><input type="button" value="수정" onClick={() => handleUpdate(users)} /></td>
-                <td><input type="button" value="삭제" /></td>
+                <td><input type="button" value="탈퇴" onClick={handleDelete} /></td>
               </TableRow>
               :
 
               // 전체 회원 조회
               <>
-                {
-                  users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => {
-                    return (
-                      <TableRow tabIndex={-1} key={user.id}>
-                        <td key={user.id}> {user.id} </td>
-                        <td className={user.name}>{user.name}</td>
-                        <td className={user.email}>{user.email}</td>
-                        <td style={{ textAlign: 'right' }} className={user.birthDay}>{user.birthDay}</td>
-                        <td style={{ textAlign: 'right' }} className={user.age}>{user.age}</td>
-                        <td style={{ textAlign: 'right' }} className={user.password}>{user.password}</td>
-                        <td><input type="button" value="수정" onClick={() => handleUpdate(user)} /></td>
-                        <td><input type="button" value="삭제" /></td>
-                      </TableRow>
-                    );
-                  })
+                {users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => {
+                  return (
+                    <TableRow tabIndex={-1} key={user.id}>
+                      <td key={user.id}> {user.id} </td>
+                      <td className={user.name}>{user.name}</td>
+                      <td className={user.email}>{user.email}</td>
+                      <td style={{ textAlign: 'right' }} className={user.birthDay}>{user.birthDay}</td>
+                      <td style={{ textAlign: 'right' }} className={user.age}>{user.age}</td>
+                      <td style={{ textAlign: 'right' }} className={user.password}>{user.password}</td>
+                      <td><input type="button" value="수정" onClick={() => handleUpdate(user)} /></td>
+                      <td><input type="button" value="삭제" /></td>
+                    </TableRow>
+                  );
+                })
                 }
               </>
             }
