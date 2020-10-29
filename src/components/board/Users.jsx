@@ -42,7 +42,7 @@ const columns = [
   },
   {
     id: 'remove',
-    label: '계정 삭제',
+    label: '삭제',
     minWidth: 30,
     align: 'right',
   },
@@ -93,19 +93,18 @@ export default function StickyHeadTable() {
   // 회원 수정
   const handleUpdate = async user => {
     // 수정하려는 유저 아이디 ->해당 데이터 가져오기
-    //const { data } = await Axios.put("/api/users", user);
-    console.log(users);
+    // const { data } = await Axios.put("/api/users", user);
+    //console.log(users);
     window.location.href = '/register';
   }
 
   // 회원 삭제
-  const handleDelete = async user => {
-    console.log(users);
-    // const exUser = JSON.stringify(users);
-    await Axios.delete('/api/users', { data: users });
+  const handleDelete = () => {
+    Axios.delete('/api/users', { data: users });
     setUsers([]);
     localStorage.clear('user');
     window.location.href = '/';
+
   }
 
   return (
@@ -149,7 +148,7 @@ export default function StickyHeadTable() {
                 <td style={{ textAlign: 'right' }} className={users.birthDay}>{users.birthDay}</td>
                 <td style={{ textAlign: 'right' }} className={users.age}>{users.age}</td>
                 <td style={{ textAlign: 'right' }} className={users.password}>{users.password}</td>
-                <td><input type="button" value="수정" onClick={() => handleUpdate(users)} /></td>
+                <td><input type="button" value="수정" onClick={handleUpdate} /></td>
                 <td><input type="button" value="탈퇴" onClick={handleDelete} /></td>
               </TableRow>
               :
@@ -165,8 +164,8 @@ export default function StickyHeadTable() {
                       <td style={{ textAlign: 'right' }} className={user.birthDay}>{user.birthDay}</td>
                       <td style={{ textAlign: 'right' }} className={user.age}>{user.age}</td>
                       <td style={{ textAlign: 'right' }} className={user.password}>{user.password}</td>
-                      <td><input type="button" value="수정" onClick={() => handleUpdate(user)} /></td>
-                      <td><input type="button" value="삭제" /></td>
+                      <td><input type="button" value="수정" onClick={handleUpdate(user)} /></td>
+                      <td><input type="button" value="삭제" onClick={handleDelete(user)} /></td>
                     </TableRow>
                   );
                 })

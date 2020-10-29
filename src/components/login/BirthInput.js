@@ -2,6 +2,31 @@ import React from 'react';
 import "./birthInput.scss";
 
 class BirthInput extends React.Component {
+
+    constructor(props) {
+        super(props);
+        //const birthArr = props.birthday.split('-');
+        const birth = props.birthDay;
+        const birthArr = birth.split('-')
+        console.log(birth.split('-'));
+        console.log(birthArr[0]);
+
+        if (props.birthDay === '') {
+            this.state = {
+                year: new Date().getFullYear(),
+                month: new Date().getMonth() + 1,
+                day: new Date().getDate()
+            }
+
+        } else {
+            this.state = {
+                year: parseInt(birthArr[0]),
+                month: parseInt(birthArr[1]),
+                day: parseInt(birthArr[2])
+            }
+        }
+    }
+
     getYearList = () => {
         const year = new Date().getFullYear();
         return (
@@ -29,19 +54,19 @@ class BirthInput extends React.Component {
             <div className="birthWrapper">
                 <div >
                     <div className="birthtitle"><span>연도</span></div>
-                    <select id="bdyear">
+                    <select id="bdyear" defaultValue={this.state.year}>
                         {this.getYearList()}
                     </select>
                 </div>
                 <div>
                     <div className="birthtitle"><span>월</span></div>
-                    <select id="bdmonth">
+                    <select id="bdmonth" defaultValue={this.state.month}>
                         {this.getMonthList()}
                     </select>
                 </div>
                 <div>
                     <div className="birthtitle"><span>일</span></div>
-                    <select id="bdday">
+                    <select id="bdday" defaultValue={this.state.day}>
                         {this.getDayList()}
                     </select>
                 </div>
