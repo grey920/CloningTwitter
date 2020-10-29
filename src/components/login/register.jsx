@@ -53,10 +53,17 @@ export class Register extends React.Component {
                         </div>
                         <div className="form">
                             <InputWithLabel label="name" type="text" id="name" name="name" defaultValue={user.name}>이름</InputWithLabel>
-                            <InputWithLabel label="email" type="email" id="email" name="email" defaultValue={user.email}>이메일</InputWithLabel>
-                            <div className="register-by">
-                                <Link to=""><p>대신 휴대폰 사용하기</p></Link>
-                            </div>
+                            {JSON.parse(localStorage.getItem('user')) == null ?
+                                <>
+                                    <InputWithLabel label="email" type="email" id="email" name="email" defaultValue={user.email}>이메일</InputWithLabel>
+                                    <div className="register-by">
+                                        <Link to=""><p>대신 휴대폰 사용하기</p></Link>
+                                    </div>
+                                </>
+                                :
+                                <></>
+                            }
+
                             <InputWithLabel label="password" type="password" id="password" name="password" defaultValue={user.password}>비밀번호</InputWithLabel>
                             <div className="form-group-birth">
                                 <div className="birth-title"><b>생년월일</b></div>
@@ -115,7 +122,7 @@ const update = async () => {
         dd = '0' + dd;
     }
 
-    updateUser.email = document.getElementById('email').value;
+    // updateUser.email = document.getElementById('email').value;
     updateUser.name = document.getElementById('name').value;
     updateUser.password = document.getElementById('password').value;
     updateUser.birthDay = `${yy}-${mm}-${dd}`;
@@ -124,6 +131,7 @@ const update = async () => {
     await Axios.put('/api/users', updateUser)
         .then(data => {
             console.log(data);
+            localStorage.setItem('user', JSON.stringify(updateUser));
             alert('수정이 완료되었습니다.')
             window.location.href = '/';
         })
