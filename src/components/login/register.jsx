@@ -27,10 +27,10 @@ if (loginedUser == null) {
     }
 }
 
+
 export class Register extends React.Component {
 
     render() {
-        //  const { name, email, password, birthDay } = this.state
         return (
             <main>
                 <div className="base-container">
@@ -64,14 +64,24 @@ export class Register extends React.Component {
                                 <></>
                             }
 
-                            <InputWithLabel label="password" type="password" id="password" name="password" defaultValue={user.password}>비밀번호</InputWithLabel>
+                            <InputWithLabel
+                                label="password"
+                                type="password"
+                                id="password"
+                                name="password"
+                                defaultValue={user.password}
+                                placeholder="8자리 이상 영어 대소문자, 특수문자, 숫자 혼용"
+                            //onChange={chkPW}
+                            >
+                                비밀번호
+                                </InputWithLabel>
                             <div className="form-group-birth">
                                 <div className="birth-title"><b>생년월일</b></div>
                                 <div className="birth-des">이 정보는 공개적으로 표시되지 않습니다. 비즈니스, 반려동물 등 계정 주제에 상관 없이 나의 연령을 확인하세요.</div>
                                 <BirthInput birthDay={user.birthDay}></BirthInput>
                             </div>
                             {JSON.parse(localStorage.getItem('user')) == null ?
-                                <BlueButton to="" name="goHome" onClick={join} >회원가입</BlueButton>
+                                <BlueButton name="goHome" onClick={join} >회원가입</BlueButton>
                                 :
                                 <BlueButton to="" name="goHome" onClick={update} >수정</BlueButton>
                             }
@@ -83,7 +93,21 @@ export class Register extends React.Component {
     }
 
 }
+// 비밀번호 정규식
+const chkPW = (inputPassword) => {
+    const passwordReg = /^(?=.*\\d)(?=.*[~`!@#$%\\\\^&*()-])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    // const passwordReg = /^(?=.* [a - zA - Z])(?=.* [!@#$%^*+=-]) (?=.* [0 - 9]).{ 8, 25 }$/;
+    console.log(inputPassword);
+    if (!passwordReg.test(inputPassword)) {
+        console.log(passwordReg.test(inputPassword));
+        alert('비밀번호는 8자 이상이어야 하며, 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다');
+        return false;
 
+    }
+
+}
+
+// 가입 작업
 const joinEndPoint = "/api/users";
 const join = async () => {
     const user = {};
@@ -99,17 +123,25 @@ const join = async () => {
 
     user.email = document.getElementById('email').value;
     user.name = document.getElementById('name').value;
+    //user.password = document.getElementById('password').value;
     user.password = document.getElementById('password').value;
+
+
     user.birthDay = `${yy}-${mm}-${dd}`;
     console.log(user)
 
-    const { data: users } = await Axios.post(joinEndPoint, user);
-    if (users) {
-        alert("가입을 축하합니다");
-    }
-    console.log(users);
+    await Axios.post(joinEndPoint, user)
+        .then(data => {
+            console.log(data);
+            alert("가입을 축하합니다.")
+            window.location.href = '/';
+        })
+        .catch(err => {
+            alert("양식을 다시 확인해주세요")
+        });
 }
 
+// 수정 작업
 const update = async () => {
     const updateUser = JSON.parse(localStorage.getItem('user'));
     const yy = document.getElementById('bdyear').value;

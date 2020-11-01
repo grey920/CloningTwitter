@@ -28,7 +28,6 @@ const NMsg = (props) => {
 }
 
 // 로그인 함수
-const loginEndPoint = "/api/users/login"
 const login = async () => {
     const loginTryUser = {};
     loginTryUser.email = document.getElementsByName("email")[0].value;
@@ -39,6 +38,7 @@ const login = async () => {
         email: loginTryUser.email,
         password: loginTryUser.password,
     }
+    const loginEndPoint = "/api/users/login"
     await Axios.post(loginEndPoint, logUser)
         .then(user => {
             console.log(user);

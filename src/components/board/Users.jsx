@@ -94,8 +94,8 @@ export default function StickyHeadTable() {
   const handleUpdate = async user => {
     // 수정하려는 유저 아이디 ->해당 데이터 가져오기
     // const { data } = await Axios.put("/api/users", user);
-    //console.log(users);
-    window.location.href = '/register';
+    console.log(user);
+    window.location.href = `/register`;
   }
 
   // 회원 삭제
@@ -164,8 +164,8 @@ export default function StickyHeadTable() {
                       <td style={{ textAlign: 'right' }} className={user.birthDay}>{user.birthDay}</td>
                       <td style={{ textAlign: 'right' }} className={user.age}>{user.age}</td>
                       <td style={{ textAlign: 'right' }} className={user.password}>{user.password}</td>
-                      <td><input type="button" value="수정" onClick={handleUpdate(user)} /></td>
-                      <td><input type="button" value="삭제" onClick={handleDelete(user)} /></td>
+                      {/* <td><input type="button" value="수정" onClick={handleUpdate} /></td>
+                      <td><input type="button" value="삭제" onClick={handleDelete} /></td> */}
                     </TableRow>
                   );
                 })
@@ -175,15 +175,19 @@ export default function StickyHeadTable() {
           </TableBody>
         </Table>
       </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 25, 100]}
-        component="div"
-        count={users.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onChangePage={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
-      />
+      {localStorage.getItem('user') == null ?
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25, 100]}
+          component="div"
+          count={users.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+        />
+        :
+        <></>
+      }
     </Paper >
   );
 }
