@@ -151,7 +151,7 @@ export default App;
 
 ## 메인 페이지
 
-![twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c/home%201.jpg](twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c/home%201.jpg)
+![home.jpg](/README/home.jpg)
 
 ### 전체 코드
 
@@ -303,11 +303,11 @@ const BlueButton = ({ to, name, children, onClick }) => (
 export default BlueButton;
 ```
 
-![twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c.jpg](twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c.jpg)
+![README.jpg](README/loginBefore.jpg)
 
 기본(비회원) 메인 링크
 
-![twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c%201.jpg](twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c%201.jpg)
+![README%201.jpg](README/loginAfter.jpg)
 
 로그인 후 메인 링크
 
@@ -427,7 +427,7 @@ export default login;
 
 ### 4. 리액트 아이콘 사용하기
 
-![twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c%202.jpg](twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c%202.jpg)
+![README%202.jpg](README/reactIcon.jpg)
 
 - 아이콘은 React Icons의 [Bootstrap Icons](https://react-icons.github.io/react-icons/icons?name=bs)를 사용
 - 아이콘 + 메시지 형태가 반복 → 컴포넌트화 한다
@@ -468,11 +468,11 @@ const NMsg = (props) => {
 
 ## 회원가입 페이지
 
-![twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c/register.jpg](twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c/register.jpg)
+![README/register.jpg](README/register.jpg)
 
 회원가입 폼
 
-![twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c%203.jpg](twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c%203.jpg)
+![README%203.jpg](README/update.jpg)
 
 회원정보 수정 폼
 
@@ -654,13 +654,13 @@ const update = async () => {
 
 ### 2. 인풋 박스에 focus되면 파란색으로 보더 색상 변경
 
-![twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c/blueborder.jpg](twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c/blueborder.jpg)
+![README/blueborder.jpg](README/blueborder.jpg)
 
 - focus가 되는 부분(input)과 border-bottom(label)이 적용되는 부분이 다르다 → **focus-within** 사용
 
 `src/login/InputWithLabel.jsx`
 
-![twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c/blueborderscss.jpg](twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c/blueborderscss.jpg)
+![README/blueborderscss.jpg](README/blueborderscss.jpg)
 
 - focus-within : 부모 요소에 사용하면 내부 자식 요소에 포커스 된 경우까지 스타일을 쉽게 적용된다
 
@@ -668,7 +668,7 @@ const update = async () => {
 
 ## 로그인 페이지
 
-![twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c/login.jpg](twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c/login.jpg)
+![README/login.jpg](README/login.jpg)
 
 - LoginHeader컴포넌트를 재사용한다.
 
@@ -676,11 +676,11 @@ const update = async () => {
 
 ## 회원 조회 페이지
 
-![twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c%204.jpg](twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c%204.jpg)
+![README%204.jpg](README/userListAll.jpg)
 
 전체 회원 조회
 
-![twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c%205.jpg](twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c%205.jpg)
+![README%205.jpg](README/userList.jpg)
 
 본인 정보 조회 
 
