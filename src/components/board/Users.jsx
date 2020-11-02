@@ -52,8 +52,12 @@ const columns = [
 
 export default function StickyHeadTable() {
   const [page, setPage] = React.useState(0);
+
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
+  const [totalRows, setTotalRows] = React.useState(10);
+
+  // 다음 또는 이전 페이지 버튼 클릭시
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -79,16 +83,17 @@ export default function StickyHeadTable() {
         });
     } else {
       // 세션이 없으면 전체 회원목록 조회 호출
-      Axios.get("/api/users")
+      Axios.get(`/api/users/paging?page=${page}&size=${rowsPerPage}`)
         .then((res) => {
-          let userArray = res.data;
+          console.log(res)
+          let userArray = res.data.content;
           console.log(userArray);
           setUsers(userArray);
+          // 전체 데이터 수
+          setTotalRows(res.data.totalElements);
         });
     }
-
-
-  }, []);
+  }, [page, rowsPerPage]);
 
   // 회원 수정
   const handleUpdate = async user => {
@@ -179,7 +184,7 @@ export default function StickyHeadTable() {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25, 100]}
           component="div"
-          count={users.length}
+          count={totalRows}
           rowsPerPage={rowsPerPage}
           page={page}
           onChangePage={handleChangePage}
