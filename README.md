@@ -1,3 +1,10 @@
+목차
+[Intro](#intro)
+[Spec](#spec)
+[Contents](#contents)
+
+# twitty- 회원관리
+
 # Intro
 
 ## spec
@@ -79,7 +86,7 @@ $ yarn start
 
 실행했을 때 첫 화면은 Home화면이다
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3caf31a8-147c-4f9e-b99b-80fd19ceffaa/home.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3caf31a8-147c-4f9e-b99b-80fd19ceffaa/home.jpg)
+![twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c/home.jpg](twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c/home.jpg)
 
 Home
 
@@ -139,7 +146,7 @@ export default App;
 
 ## 메인 페이지
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a850789d-b22c-413c-963d-81084ec067ae/home.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a850789d-b22c-413c-963d-81084ec067ae/home.jpg)
+![twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c/home%201.jpg](twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c/home%201.jpg)
 
 ### 전체 코드
 
@@ -291,11 +298,11 @@ const BlueButton = ({ to, name, children, onClick }) => (
 export default BlueButton;
 ```
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d4eaa86c-20fd-45b9-8ce1-cfa6ced5ff89/.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d4eaa86c-20fd-45b9-8ce1-cfa6ced5ff89/.jpg)
+![twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c.jpg](twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c.jpg)
 
 기본(비회원) 메인 링크
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f5faf3aa-8860-4e51-b28d-f8013efec070/.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f5faf3aa-8860-4e51-b28d-f8013efec070/.jpg)
+![twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c%201.jpg](twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c%201.jpg)
 
 로그인 후 메인 링크
 
@@ -415,7 +422,7 @@ export default login;
 
 ### 4. 리액트 아이콘 사용하기
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/92c66035-2946-490b-b0d2-d883f6e1b75a/.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/92c66035-2946-490b-b0d2-d883f6e1b75a/.jpg)
+![twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c%202.jpg](twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c%202.jpg)
 
 - 아이콘은 React Icons의 [Bootstrap Icons](https://react-icons.github.io/react-icons/icons?name=bs)를 사용
 - 아이콘 + 메시지 형태가 반복 → 컴포넌트화 한다
@@ -456,11 +463,11 @@ const NMsg = (props) => {
 
 ## 회원가입 페이지
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8734b2ca-5d07-43c3-92bb-32bfa038489c/register.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8734b2ca-5d07-43c3-92bb-32bfa038489c/register.jpg)
+![twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c/register.jpg](twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c/register.jpg)
 
 회원가입 폼
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d001e473-b3da-4a3a-9dd9-d238195bcc15/.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d001e473-b3da-4a3a-9dd9-d238195bcc15/.jpg)
+![twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c%203.jpg](twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c%203.jpg)
 
 회원정보 수정 폼
 
@@ -642,13 +649,13 @@ const update = async () => {
 
 ### 2. 인풋 박스에 focus되면 파란색으로 보더 색상 변경
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8a04174d-1845-4b9e-a28d-52e7a5cf2f7c/blueborder.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8a04174d-1845-4b9e-a28d-52e7a5cf2f7c/blueborder.jpg)
+![twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c/blueborder.jpg](twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c/blueborder.jpg)
 
 - focus가 되는 부분(input)과 border-bottom(label)이 적용되는 부분이 다르다 → **focus-within** 사용
 
 `src/login/InputWithLabel.jsx`
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ed6c7dbe-e1e3-41b9-a97e-ce2d2e3d6759/blueborderscss.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ed6c7dbe-e1e3-41b9-a97e-ce2d2e3d6759/blueborderscss.jpg)
+![twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c/blueborderscss.jpg](twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c/blueborderscss.jpg)
 
 - focus-within : 부모 요소에 사용하면 내부 자식 요소에 포커스 된 경우까지 스타일을 쉽게 적용된다
 
@@ -656,7 +663,7 @@ const update = async () => {
 
 ## 로그인 페이지
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/73ad3fcc-56cc-4acb-bdab-d9ddea14c0d7/login.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/73ad3fcc-56cc-4acb-bdab-d9ddea14c0d7/login.jpg)
+![twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c/login.jpg](twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c/login.jpg)
 
 - LoginHeader컴포넌트를 재사용한다.
 
@@ -664,11 +671,11 @@ const update = async () => {
 
 ## 회원 조회 페이지
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/79a69527-ff39-422d-8476-43782c1ef7f9/.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/79a69527-ff39-422d-8476-43782c1ef7f9/.jpg)
+![twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c%204.jpg](twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c%204.jpg)
 
 전체 회원 조회
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a253ba3a-a16c-459c-81b2-2973436fbe6e/.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a253ba3a-a16c-459c-81b2-2973436fbe6e/.jpg)
+![twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c%205.jpg](twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c%205.jpg)
 
 본인 정보 조회 
 
