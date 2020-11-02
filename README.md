@@ -801,4 +801,673 @@ useEffect(() => {
 />
 ```
 
-적용한 테이블 : [https://material-ui.com/components/tables/#fixed-header](https://material-ui.com/components/tables/#fixed-header)
+적용한 테이블 : [https://material-ui.com/components/tables/#fixed-header](https://material-ui.com/components/tables/#fixed-header)   
+
+<hr />
+
+# [Back] Spring Boot
+
+## Contents
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c4ab2591-3fad-472b-99d2-80296925d4e7/tree.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c4ab2591-3fad-472b-99d2-80296925d4e7/tree.jpg)
+
+[API](https://www.notion.so/2cf2d7d7464e4891a750c52655425361)
+
+# Config
+
+### application.properties
+
+- 스프링부트가 애플리케이션을 구동할 때 자동으로 로딩하는 파일이다. key-value 형식으로 값을 정의하면 애플리케이션에서 참조하여 사용할 수 있다.
+
+```java
+// application.properties
+gw.name = grey
+```
+
+```java
+// SampleRunner.java
+@Value("${gw.name}")
+private String name; // name에 grey가 바인딩됨
+```
+
+- 사용한 설정들
+
+```java
+spring.datasource.url=jdbc:postgresql://localhost:5432/crudtest
+spring.datasource.username=postgres
+spring.datasource.password=postgre
+
+spring.jpa.generate-ddl=true
+#spring.jpa.hibernate.ddl-auto=create-drop
+spring.jpa.show-sql=true
+
+#logging.level.org.springframework = trace
+```
+
+## 도메인 (Entity 클래스)
+
+`User.java`
+
+```java
+package com.test.study.user;
+
+import java.time.LocalDate;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Min;
+
+import org.hibernate.validator.constraints.UniqueElements;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Builder
+@Table(name="new_twitty_user")
+@Entity(name = "new_twitty_user")
+public class User {
+
+	@Id @GeneratedValue
+	private Long id;
+	@Column(nullable = false)
+	private String email;
+	private String name;
+	private String password;
+	private Integer age;
+	private boolean isAdult;
+	private LocalDate birthDay;// Java8부터 가능. 날짜 정보만 필요할 때 사용
+
+	public void update() {
+		if(age > 20)
+			this.isAdult = true;
+		else
+			this.isAdult =false;
+	}
+}
+```
+
+**사용한 어노테이션**
+
+참고 : [https://jojoldu.tistory.com/251](https://jojoldu.tistory.com/251)
+
+- Lombok 라이브러리를 사용하여 **@Builder** 애노테이션으로 빌더 패턴을 적용함
+    - 빌더 패턴 : 복합 객체의 생성 과정과 표현 방법을 분 리해서 동일한 생성 절차에서 서로 다른 표현 결과를 만들 수 있게 하는 패턴.
+- **@Entity** 어노테이션을 클래스에 선언하면 그 클래스는 JPA가 관리한다. 따라서 DB의 테이블과 Class(VO, DTO)와 맵핑한다면 반드시 @Entity를 붙여야 한다. 즉 테이블과 링크될 클래스임을 명시.
+    - 언더스코어 네이밍(_)으로 이름을 매칭한다
+    - name : 엔티티의 이름을 지정. 기본값으로 클래스 이름을 사용한다.
+- **@Table** 어노테이션은 맵핑할 테이블을 지정한다.
+    - name : 맵핑할 테이블의 이름을 지정한다.
+    - catalog : DB의 catalog를 맵핑한다
+    - schema : DB 스키마와 맵핑한다
+    - uniqueConstraint: DDL 쿼리를 작성할 때 제약 조건을 생성한다.
+- **@Column** 어노테이션은 객체 필드와 DB의 테이블 컬럼을 맵핑한다.
+    - nullable : NULL을 허용할지, 허용하지 않을 지 결정한다.
+- **@Id** : JPA가 객체를 관리할 떄 식별할 기본키를 지정한다.
+- **@GeneratedValue** : 주키의 값을 위한 자동 생성 전략을 명시한다.
+- **@NoArgsConstructor** :  Entity 클래스를  프로젝트 코드상에서 기본 생성자로 생성하는 것은 막되, JPA에서 Entity 클래스를 생성하는 것은 허용하기 위해 추가
+
+## UserCreateDto
+
+회원 가입 (생성)할 때에 사용하는 DTO 클래스이다. 
+
+→  왜 Entity와 DTO를 분리했는가? 
+
+- 테이블과 매핑되는 Entity 클래스를 request/response 클래스로 사용해서는 안된다.
+    - Entity 클래스는 가장 코어한 클래스. 즉, Entity 클래스가 변경되면 여러 클래스에 영향을 끼치게 된다. 그러나 Request와  Response용 DTO는 View를 위한 클래스라 자주 변경이 필요하다.
+
+```java
+package com.test.study.user;
+
+import java.time.LocalDate;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class UserCreateDto { 
+
+	@NotEmpty(message = "이름은 필수로 넣어야 합니다")
+	private String name;
+	
+	@NotEmpty(message = "email은 필수로 넣어야 합니다")
+	@Email
+	private String email;
+	
+	@NotEmpty(message = "비밀번호는 필수로 넣어야 합니다")
+	@Pattern(regexp = "^(?=.*\\d)(?=.*[~`!@#$%\\\\^&*()-+_=])(?=.*[a-z])(?=.*[A-Z]).{8,}$", 
+message="영문(대소문자),숫자,특수문자 조합으로 8자리 이상 입력해야 합니다")
+	private String password;
+	
+	@NotNull
+	private LocalDate birthDay;
+	
+	@Min(14)
+	private Integer age;
+	
+	public void update() {
+		// birthday로 나이 입력
+		LocalDate now = LocalDate.now();
+		this.age = now.minusYears(birthDay.getYear()).getYear();
+		if(birthDay.plusYears(age).isAfter(now)) {
+			this.age = age-1;
+		}
+		
+	}
+	
+}
+```
+
+- 회원 생성시 name, email, password, birthDay를 받고, update()메소드를 호출해서 age를 넣는다.
+
+## Repository
+
+`UserRepository.java`
+
+```java
+package com.test.study.user;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UserRepository extends JpaRepository<User, Long> {
+	// findBy+컬럼명 : 이를 이용한 검색 가능
+	public User findByEmail(String email);
+
+	public User findByEmailAndPassword(String email, String password);
+
+//	public List<User> findByNameLike(String name); // 파라미터로 전달된 name과 유사한 user를 찾겠다
+	
+//	public List<User> findByNameisNull(String name); // name이 null값인 것만 검색
+
+}
+```
+
+- JPA에서는 Repository 인터페이스를 생성한 후 JpaRepository<Entity, 기본키 타입>을 상속받으면 기본적인 Create, Read, Update, Delete가 자동으로 생성된다.
+
+    참고: [https://goddaehee.tistory.com/209](https://goddaehee.tistory.com/209)
+
+- 메소드 이름으로 쿼리 생성
+
+    참고: [https://ict-nroo.tistory.com/117](https://ict-nroo.tistory.com/117)
+
+    - 선언된 메서드에 대해서는 애플리케이션 로딩 시점에 쿼리를 다 만들어 버린다. → 에러를 사전에 잡을 수 있다.
+
+## Service
+
+```java
+package com.test.study.user;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class UserService {
+	
+	@Autowired
+	private UserRepository repository;
+	
+	/**회원 등록 + 수정 => save 메소드로 공통 사용 
+	 * alt+shift+J : 메소드 관련된 정보가 주석으로 보임
+	 * @param user
+	 * @return
+	 */
+	public User save(User user) {
+		User newUser = this.repository.save(user);
+		return newUser;
+	}
+
+	// 회원 전체 조회
+	public List<User> list() {
+		List<User> users = this.repository.findAll();
+		return users;
+	}
+	
+	
+	// 아이디로 회원조회
+	public User findByEmail(String email) {
+		return this.repository.findByEmail(email);
+	}
+	
+	// 로그인 작업
+	public User isEmail(User userMap) {
+		User user = this.findByEmail(userMap.getEmail());
+		if(user != null) {// 해당 아이디가 있는 경우
+			if(user.getPassword().equals(userMap.getPassword()))//db에 있는 비번과 비교
+				return user; // 일치하면 user 리턴
+			else {
+				return null;
+			}
+		}else
+			return null;
+		
+	}
+
+	/** 회원 삭제
+	 * @param user
+	 */
+	public void delete(User user) {
+		this.repository.delete(user);
+	}
+	
+	// 회원 전체 삭제
+		public void deleteList() {
+			this.repository.deleteAll();
+		}
+}
+```
+
+## Controller
+
+```java
+package com.test.study.user;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+
+import java.net.URI;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.MediaTypes;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping(value = "/api/users", produces = MediaTypes.HAL_JSON_VALUE)
+public class UserController {
+
+	@Autowired
+	UserService service;
+
+	@Autowired
+	private ModelMapper modelmapper;
+
+	/* 회원 생성 */
+	@PostMapping
+	public ResponseEntity<Object> create(@RequestBody @Valid UserCreateDto userDto, Errors errors) {
+		if (errors.hasErrors()) {
+			return ResponseEntity.badRequest().body(errors); // 에러를 직접 바디에 담아서 리턴
+			// -> 에러발생! => errors를 Serialize해서 ResponseEntity에 담아야 한다
+		}
+		userDto.update();
+		User newUser = modelmapper.map(userDto, User.class);
+		newUser.update();
+		if (newUser.isAdult() == false)
+			return ResponseEntity.badRequest().body(errors);
+		newUser = this.service.save(newUser);
+
+		URI uri = linkTo(UserController.class).slash(newUser.getId()).toUri();
+		return ResponseEntity.created(uri).body(newUser);
+	}
+
+	// 회원 전체 조회
+	@GetMapping
+	public ResponseEntity<List<User>> findall() {
+		List<User> users = this.service.list();
+		return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+	}
+
+	// 회원 아이디 조회
+	@GetMapping("{email}")
+	public ResponseEntity<User> findByEmail(@PathVariable("email") String email) {
+		User user = this.service.findByEmail(email);
+		return new ResponseEntity<User>(user, HttpStatus.OK);
+	}
+
+	// 로그인
+	@PostMapping("/login")
+	public ResponseEntity<Object> login(@RequestBody @Valid UserLoginDto userDto, Errors errors,
+			HttpServletRequest req) {
+		if (errors.hasErrors()) {
+			return ResponseEntity.badRequest().body(errors);
+		}
+		User user = modelmapper.map(userDto, User.class);
+		// user로 로그인 검사 -> 일치하는 유저 정보를 불러온다
+		User checkedUser = this.service.isEmail(user);
+		// 일치하는 유저가 없으면 badRequest 리턴
+		if (checkedUser == null) {
+			return ResponseEntity.badRequest().body(errors);
+		}
+		// 세션 생성
+		HttpSession session = req.getSession();
+		// 세션에 로그인 된 유저 등록
+		session.setAttribute("loginUser", checkedUser);
+		System.out.println(session.getAttribute("loginUser"));
+		return new ResponseEntity<Object>(checkedUser, HttpStatus.OK);
+		
+		// 이제 클라이언트 => Local Storage에 담자!
+	}
+
+	// 회원 수정
+	@PutMapping
+	public ResponseEntity<User> update(@RequestBody User user, HttpSession session) {
+
+		// User user = session.getAttribute("loginUser");
+
+		User newUser = this.service.save(user);
+		System.out.println(user.toString());
+		session.setAttribute("loginUser", newUser);
+		return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
+	}
+
+	// 회원 삭제
+	@DeleteMapping
+	public ResponseEntity<User> delete(@RequestBody User user) {
+		this.service.delete(user);
+		return new ResponseEntity<User>(HttpStatus.CREATED);
+	}
+
+	// 회원 전체 삭제
+	@DeleteMapping("/All")
+	public void deleteAll() {
+		this.service.deleteList();
+	}
+
+}
+```
+
+---
+
+# Test
+
+## 도메인 테스트
+
+```java
+package com.test.study.user;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+public class UserDomainTest {
+	
+	/*생성*/
+	@Test
+	public void User_빌더_테스트() {
+		User user = User.builder().build();
+		assertThat(user).isNotNull();
+	}
+	
+	@Test
+	public void UserCreateDto_빌더_테스트() {
+		UserCreateDto user = UserCreateDto.builder().build();
+		assertThat(user).isNotNull();
+	}
+	
+	@Test
+	@DisplayName("Constructor로 생성한 User객체")
+	public void User_객체_생성_테스트() {
+		String name = "정겨운";
+		String password = "1234";
+
+		User user = new User();
+		user.setName(name);
+		user.setEmail("kyewoon@aaa.com");
+		user.setPassword(password);
+		user.setAge(25);
+		assertThat(user).isNotNull();
+		assertThat(user.getName()).isEqualTo(name);
+		assertThat(user.getPassword()).isEqualTo(password);
+	}
+	
+	@Test
+	public void UserCreateDto_객체_생성_테스트() {
+		String name = "정겨운";
+		String email = "kyewoon@aaa.com";
+		String password = "1234";
+		LocalDate birthDay = LocalDate.of(1992, 1, 18);
+
+		UserCreateDto user = new UserCreateDto();
+		user.setName(name);
+		user.setEmail(email);
+		user.setPassword(password);
+		user.setBirthDay(birthDay);
+		assertThat(user).isNotNull();
+		assertThat(user.getName()).isEqualTo(name);
+		assertThat(user.getPassword()).isEqualTo(password);
+	}
+	
+	@Test
+	public void User_생성_성인_테스트() {
+		LocalDate birthDay = LocalDate.of(2000, 1, 18);
+		User user = User.builder().birthDay(birthDay).build();
+		user.update();
+		
+		assertThat(user.isAdult()).isEqualTo(false);
+	}
+	
+	@Test
+	public void User_만_나이_계산_테스트() {
+		LocalDate now = LocalDate.now();
+		LocalDate userBirthDate = LocalDate.of(1992, 1, 18);
+		// 생일이 지났으면 (올해 - 생년월일의 연도)
+		int userAge = now.minusYears(userBirthDate.getYear()).getYear();
+		
+		// 생일이 안지났으면 (올해 - 생년월일의 연도) - 1을 한다
+		if (userBirthDate.plusYears(userAge).isAfter(now)) {
+			userAge = userAge -1;
+		}
+		
+		User user = User.builder().birthDay(userBirthDate).age(userAge).build();
+		
+		assertThat(user.getAge()).isEqualTo(28);
+		
+	}
+
+	
+
+}
+```
+
+## 컨트롤러 테스트
+
+```java
+package com.test.study.user;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.time.LocalDate;
+import java.util.HashMap;
+
+import org.apache.tomcat.util.file.Matcher;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.hateoas.MediaTypes;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.filter.CharacterEncodingFilter;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+@AutoConfigureMockMvc
+@SpringBootTest
+public class UserController테스트 {
+
+	@Autowired
+	private MockMvc mockMvc;
+
+	@Autowired
+	private WebApplicationContext ctx;
+
+	@Autowired
+	private ObjectMapper objectMapper;
+	
+
+	@BeforeEach
+	public void init() throws  Exception {
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx)
+.addFilters(new CharacterEncodingFilter("UTF-8", true)) // 필터
+																												// 추가
+				.alwaysDo(print()).build();
+		
+	@Test
+	@DisplayName("회원가입 - 성공")
+	public void user_생성_성공_테스트() throws Exception {
+		UserCreateDto user = UserCreateDto.builder().name("정다와").email("dawa@google.com").password("^Na13$sgd").birthDay(LocalDate.of(1992, 1, 18))
+				.build();
+		user.update();
+
+		this.mockMvc.perform(post("/api/users/").contentType(MediaTypes.HAL_JSON_VALUE)// 안넣어도 동작함
+				.content(objectMapper.writeValueAsString(user)) // String으로 변환해서 body에 넣겠다
+		).andDo(print()).andExpect(status().isCreated()); // 컨트롤러가 반환하는 값 확인
+	}
+
+	@DisplayName("회원가입 - 실패 : email에 null값 입력")
+	@ParameterizedTest
+	@NullAndEmptySource // null or "" 입력
+	public void user_생성_실패_테스트(String input) throws Exception {
+		UserCreateDto user = UserCreateDto.builder()
+				.email(input)
+				.name("정겨운")
+				.password("123QWE!@#qwe")
+				.birthDay(LocalDate.of(1992, 1, 18))
+				.build();
+		user.update();
+
+		this.mockMvc.perform(post("/api/users/").contentType(MediaTypes.HAL_JSON_VALUE)// 안넣어도 동작함
+				.content(objectMapper.writeValueAsString(user)) // String으로 변환해서 body에 넣겠다
+		).andDo(print())
+				.andExpect(status().isBadRequest()); // 컨트롤러가 반환하는 값 확인
+	}
+
+	@DisplayName("회원가입 - 실패 : 14세 미만 가입불가")
+	@Test
+	public void user_14세미만_가입불가_테스트() throws Exception {
+		UserCreateDto user = UserCreateDto.builder().birthDay(LocalDate.of(2020, 1, 18)).build();
+
+		this.mockMvc
+				.perform(post("/api/users/").contentType(MediaTypes.HAL_JSON_VALUE)
+						.content(objectMapper.writeValueAsString(user)))
+				.andDo(print()).andExpect(status().isBadRequest());
+	}
+
+	@DisplayName("회원가입 - 실패 : 비밀번호 유효성 검사")
+	@ParameterizedTest
+	@ValueSource(strings= {"0", "가나다라마바사","1234567891011","1,2나!다라@"})
+	public void 회원가입_비밀번호_유효성검사_테스트(String input) throws Exception{
+		UserCreateDto user = UserCreateDto.builder()
+				.name("정겨운")
+				.email("kyewoon")
+				.password(input)
+				.birthDay(LocalDate.of(1992, 1, 18))
+				.build();
+		this.mockMvc
+				.perform(
+						post("/api/users")
+						.contentType(MediaTypes.HAL_JSON_VALUE)
+						.content(this.objectMapper.writeValueAsString(user)))
+				.andDo(print())
+				.andExpect(status().isBadRequest());
+
+	}
+
+	@Test
+	@DisplayName("로그인 - 실패")  
+	public void 로그인_실패_테스트() throws Exception {
+		UserLoginDto user = UserLoginDto.builder().email("sjfh@gkdfj.com").password("a12#@dfDSA").build();
+		
+		mockMvc.perform(
+				post("/api/users/login")
+				.contentType(MediaTypes.HAL_JSON_VALUE)
+				.content(objectMapper.writeValueAsString(user))
+		).andDo(print())
+		.andExpect(status().isBadRequest());
+
+	}
+
+	@Test
+	@DisplayName("특정회원 삭제 - 성공")
+	public void 회원삭제_성공_테스트() throws Exception {
+		User user = User.builder().id((long) 2).build();
+		this.mockMvc.perform(
+				delete("/api/users/")
+				.contentType(MediaTypes.HAL_JSON_VALUE)
+				.content(objectMapper.writeValueAsString(user))
+		).andDo(print()).andExpect(status().isCreated());
+	}
+	
+	@Test
+	@DisplayName("회원 수정 - 성공")
+	public void 회원수정_성공_테스트() throws Exception {
+		User user = new User();
+		user.setId((long) 1);
+		user.setEmail("aaa@aaa.com");
+		user.setPassword("1!2@3#AaSsZz");
+		user.setName("정함박");
+		user.setBirthDay(LocalDate.of(1983, 6, 2));
+
+		mockMvc.perform(
+				put("/api/users/")
+				.contentType(MediaTypes.HAL_JSON_VALUE)
+				.content(this.objectMapper.writeValueAsString(user))
+		).andDo(print())
+		.andExpect(status().isCreated());
+	}
+	
+	
+	
+}
+```
