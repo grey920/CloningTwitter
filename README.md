@@ -90,7 +90,8 @@ $ yarn start
 ```
 
 실행했을 때 첫 화면은 Home화면이다
-![home](https://user-images.githubusercontent.com/58028215/97824062-4207a400-1cfe-11eb-9a3a-ed45ab9c5c98.JPG)
+
+![twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c/home.jpg](/README/twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c/home.jpg)
 
 Home
 
@@ -150,7 +151,7 @@ export default App;
 
 ## 메인 페이지
 
-
+![twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c/home%201.jpg](twitty-%20%E1%84%92%E1%85%AC%E1%84%8B%E1%85%AF%E1%86%AB%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%203d5c344a3a2e4434970d0e377243fd4c/home%201.jpg)
 
 ### 전체 코드
 
